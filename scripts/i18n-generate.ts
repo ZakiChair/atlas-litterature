@@ -17,9 +17,10 @@ import { ERAS, DOMAINES } from '../src/data/eras';
 const CACHE_DIR = new URL('./.cache/', import.meta.url).pathname;
 const TR_CACHE = CACHE_DIR + 'i18n-en.json';
 const OUT_FILE = new URL('../src/i18n/en-data.ts', import.meta.url).pathname;
-const BATCH = 40;
-const CONCURRENCY = 4;
+const BATCH = 50;
+const CONCURRENCY = 2;
 const MMX_TIMEOUT = 180_000;
+const ATTEMPTS = 8;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const hash = (s: string) => createHash('sha1').update(s, 'utf8').digest('hex').slice(0, 16);
@@ -90,7 +91,7 @@ async function mmxTranslate(batch: { id: string; text: string }[]): Promise<Reco
     { role: 'system', content: SYSTEM },
     { role: 'user', content: JSON.stringify({ items: batch }) },
   ]);
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
     try {
       const out = await new Promise<string>((resolve, reject) => {
         const p = execFile('mmx', ['text', 'chat', '--messages-file', '-', '--output', 'json', '--max-tokens', '16000', '--temperature', '0.2', '--non-interactive'], { timeout: MMX_TIMEOUT, maxBuffer: 16 * 1024 * 1024 }, (err, stdout) => {
@@ -100,6 +101,7 @@ async function mmxTranslate(batch: { id: string; text: string }[]): Promise<Reco
         p.stdin?.end(messages);
       });
       const parsed = JSON.parse(out);
+      if (parsed?.error) throw new Error(`mmx: ${parsed.error.message ?? 'erreur'}`);
       const text: string = parsed?.content?.[0]?.text ?? '';
       const json = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1));
       const items: { id: string; en: string }[] = json.items ?? [];
@@ -108,19 +110,10 @@ async function mmxTranslate(batch: { id: string; text: string }[]): Promise<Reco
       if (Object.keys(map).length >= Math.ceil(batch.length * 0.8)) return map;
       throw new Error(`réponse incomplète (${Object.keys(map).length}/${batch.length})`);
     } catch (e) {
-      if (attempt === 2) {
-        const map: Record<string, string> = {};
-        for (const item of batch) {
-          try {
-            const single = await mmxTranslate([item]);
-            Object.assign(map, single);
-          } catch {
-            /* texte non traduit : repli FR */
-          }
-        }
-        return map;
-      }
-      await sleep(1500 * (attempt + 1));
+      const msg = e instanceof Error ? e.message : String(e);
+      const rateLimited = /rate limit|quota/i.test(msg);
+      // rate-limit : backoff long ; les lots non traduits seront repris à la prochaine exécution
+      await sleep(rateLimited ? 20_000 + attempt * 15_000 : 2_000 * (attempt + 1));
     }
   }
   return {};
