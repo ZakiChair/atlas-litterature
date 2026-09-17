@@ -1,0 +1,115 @@
+import type { Movement } from '../types';
+
+export const GRAND_SIECLE: Movement[] = [
+  {
+    id: 'classicisme',
+    name: 'Classicisme',
+    altNames: ['Classicisme français'],
+    era: 'grand-siecle',
+    period: { start: 1635, end: 1715, approx: true },
+    domaines: ['theatre', 'poesie'],
+    map: { x: 2650, y: 1900, size: 3, palette: { fill: '#d5dbee', stroke: '#6f7fb5', accent: '#3a4680' } },
+    tagline: 'La règle et la perfection : la scène classique fait du beau un absolu — et Racine fait saigner l’alexandrin.',
+    summary:
+      'Sous Louis XIV, l’Académie fixe les règles : unités de temps, de lieu et d’action, bienséance, vraisemblance. Molière fonde la comédie de caractère, Racine pousse la tragédie à la perfection, Boileau légifère en vers. Le classicisme n’est pas l’absence de passion : c’est la forme qui la contient et l’aggrave.',
+    keyDates: [
+      { year: 1635, text: 'Richelieu fonde l’Académie française.' },
+      { year: 1664, text: 'Tartuffe de Molière, interdit puis joué : le dévot démasqué.' },
+      { year: 1667, text: 'Andromaque de Racine : la tragédie de la passion.' },
+      { year: 1674, text: 'L’Art poétique de Boileau : les règles en vers.' },
+      { year: 1677, text: 'Phèdre, sommet de la tragédie racinienne.' },
+      { year: 1688, text: 'Début de la Querelle des Anciens et des Modernes.' },
+    ],
+    tendances: [
+      {
+        id: 'cl-tragedie',
+        name: 'Tragédie',
+        summary: 'L’alexandrin serré, les unités, le « naturel » : Racine transforme les passions antiques en machine de précision.',
+        traits: ['unités', 'bienséance', 'passion contenue'],
+      },
+      {
+        id: 'cl-comedie',
+        name: 'Comédie de caractère',
+        summary: 'Molière invente la comédie de mœurs et de caractère : ridicules sociaux, vice unifiant, vérité peinte par le rire.',
+        traits: ['ridicule', 'caractères', 'critique sociale'],
+      },
+      {
+        id: 'cl-regles',
+        name: 'Doctrine et poétique',
+        summary: 'Boileau, l’Académie, les querelles : la théorie du goût se fait dogme — et le « je ne sais quoi » garde sa part de mystère.',
+        traits: ['Art poétique', 'goût', 'querelles'],
+      },
+    ],
+    auteurs: [
+      { id: 'moliere', name: 'Molière', years: [1622, 1673], qualite: 'dramaturge et comédien', bio: 'Acteur, chef de troupe, poète du rire : Tartuffe, Dom Juan, Le Misanthrope fondent la comédie de caractère et la satire des mœurs.', tendanceId: 'cl-comedie' },
+      { id: 'racine', name: 'Jean Racine', years: [1639, 1699], qualite: 'dramaturge', bio: 'L’enfant de Port-Royal : Andromaque, Britannicus, Phèdre — la passion antique portée à l’incandescence dans les limites de la règle.', tendanceId: 'cl-tragedie' },
+      { id: 'boileau', name: 'Nicolas Boileau', years: [1636, 1711], qualite: 'poète et critique', bio: 'Le « législateur du Parnasse » : Art poétique, Satires — il fixe le goût classique et se pose en juge des lettres.', tendanceId: 'cl-regles' },
+      { id: 'lafontaine', name: 'Jean de La Fontaine', years: [1621, 1695], qualite: 'fabuliste', bio: 'Les Fables mêlent animaux, morale et vers libres : sous le précepteur discret, un poète de la nature et du doute.', tendanceId: 'cl-comedie' },
+      { id: 'corneille-gs', name: 'Pierre Corneille', years: [1606, 1684], qualite: 'dramaturge', bio: 'Après le Cid baroque, le Corneille classique : Horace, Cinna, Polyeucte — la grandeur romaine disciplinée.', tendanceId: 'cl-tragedie' },
+      { id: 'perrault', name: 'Charles Perrault', years: [1628, 1703], qualite: 'écrivain', bio: 'Les Contes de ma mère l’Oye et le manifeste des Modernes : la grâce des fées au service de la modernité.', tendanceId: 'cl-regles' },
+    ],
+    oeuvres: [
+      { id: 'tartuffe', title: 'Tartuffe', year: 1664, auteurName: 'Molière', auteurId: 'moliere', tendanceId: 'cl-comedie', genre: 'theatre', comment: 'Le dévot faux et la famille aveuglée : le scandale qui fit trembler la dévotion.' },
+      { id: 'misanthrope', title: 'Le Misanthrope', year: 1666, auteurName: 'Molière', auteurId: 'moliere', tendanceId: 'cl-comedie', genre: 'theatre', comment: 'Alceste contre le monde : la comédie la plus lucide et la plus sombre du siècle.' },
+      { id: 'phedre', title: 'Phèdre', year: 1677, auteurName: 'Jean Racine', auteurId: 'racine', tendanceId: 'cl-tragedie', genre: 'theatre', comment: '« Ariane, ma sœur » : la tragédie du désir coupable, la perfection de l’alexandrin.' },
+      { id: 'andromaque', title: 'Andromaque', year: 1667, auteurName: 'Jean Racine', auteurId: 'racine', tendanceId: 'cl-tragedie', genre: 'theatre', comment: 'Les chaînes de la passion : Pyrrhus aime Andromaque qui aime son fils.' },
+      { id: 'art-poetique', title: 'L’Art poétique', year: 1674, auteurName: 'Nicolas Boileau', auteurId: 'boileau', tendanceId: 'cl-regles', genre: 'poesie', comment: 'Les règles en vers : le catéchisme du goût classique, entre bon sens et dogme.' },
+      { id: 'fables', title: 'Fables', year: 1668, auteurName: 'Jean de La Fontaine', auteurId: 'lafontaine', tendanceId: 'cl-comedie', genre: 'poesie', comment: 'Les animaux et les hommes : morale souple, vers libres, « ample comédie » du monde.' },
+      { id: 'dom-juan', title: 'Dom Juan', year: 1665, auteurName: 'Molière', auteurId: 'moliere', tendanceId: 'cl-comedie', genre: 'theatre', comment: 'Le séducteur athée et le convive de pierre : le grand « oui, mais » de la pièce libre.' },
+    ],
+  },
+  {
+    id: 'moralistes',
+    name: 'Moralistes et mémorialistes',
+    altNames: ['Moralisme classique'],
+    era: 'grand-siecle',
+    period: { start: 1650, end: 1750, approx: true },
+    domaines: ['essai'],
+    map: { x: 2900, y: 2680, size: 2, palette: { fill: '#d9ede4', stroke: '#6fae93', accent: '#2e7a5a' } },
+    tagline: 'Maximes, portraits, mémoires : le scalpel de la prose dissèque la cour et l’âme.',
+    summary:
+      'La prose d’idées au sommet : La Rochefoucauld réduit l’amour-propre à des maximes d’acier, La Bruyère peint les Caractères de la cour et du siècle, Saint-Simon écrit les Mémoires comme une comédie humaine de Versailles, Pascal fait des Pensées le chant de la misère et de la grandeur humaine.',
+    keyDates: [
+      { year: 1665, text: 'Premières Maximes de La Rochefoucauld, anonymes.' },
+      { year: 1670, text: 'Édition posthume des Pensées de Pascal.' },
+      { year: 1688, text: 'Les Caractères de La Bruyère.' },
+      { year: 1694, text: 'Premier Dictionnaire de l’Académie.' },
+      { year: 1740, text: 'Publication posthume des Mémoires de Saint-Simon commence.' },
+    ],
+    tendances: [
+      {
+        id: 'mo-maxime',
+        name: 'Maxime et portrait',
+        summary: 'La phrase courte, la réduction, la pointe : le moraliste condense l’expérience en aphorismes qui blessent encore.',
+        traits: ['aphorisme', 'amour-propre', 'ironie'],
+      },
+      {
+        id: 'mo-memoire',
+        name: 'Mémoires et correspondance',
+        summary: 'La cour vue de l’intérieur : Saint-Simon, Mme de Sévigné — l’histoire vécue devient littérature.',
+        traits: ['témoignage', 'Versailles', 'épistolarité'],
+      },
+      {
+        id: 'mo-pensee',
+        name: 'Pensée et apologétique',
+        summary: 'Pascal, Fénelon, La Bruyère : la prose s’interroge sur Dieu, l’homme, la justice — l’essai au bord de la foi.',
+        traits: ['dialectique', 'fragment', 'spiritualité'],
+      },
+    ],
+    auteurs: [
+      { id: 'rochefoucauld', name: 'La Rochefoucauld', years: [1613, 1680], qualite: 'moraliste', bio: 'Le duc qui tue les illusions : « Nos vertus ne sont le plus souvent que des vices déguisés » — les Maximes, instrument de lucidité.', tendanceId: 'mo-maxime' },
+      { id: 'labruyere', name: 'Jean de La Bruyère', years: [1645, 1696], qualite: 'moraliste', bio: 'Les Caractères : portraits de cour, de la ville, des ouvrages de l’esprit — la prose du « tout est dit ».', tendanceId: 'mo-maxime' },
+      { id: 'pascal', name: 'Blaise Pascal', years: [1623, 1662], qualite: 'philosophe et savant', bio: 'Mathématicien, polémiste des Provinciales, auteur des Pensées : le pari, le divertissement, la « misère de l’homme sans Dieu ».', tendanceId: 'mo-pensee' },
+      { id: 'sevigne', name: 'Madame de Sévigné', years: [1626, 1696], qualite: 'épistolière', bio: 'Ses lettres à sa fille, à ses amis : le siècle en direct — Grignan, les petits mariages, la mort de Vatel.', tendanceId: 'mo-memoire' },
+      { id: 'saint-simon', name: 'Saint-Simon', years: [1675, 1755], qualite: 'mémorialiste', bio: 'Le duc qui écrit Versailles : Mémoires immenses, portraits au vitriol — la cour comme texte infini.', tendanceId: 'mo-memoire' },
+    ],
+    oeuvres: [
+      { id: 'maximes', title: 'Maximes', year: 1665, auteurName: 'La Rochefoucauld', auteurId: 'rochefoucauld', tendanceId: 'mo-maxime', genre: 'essai', comment: '« L’amour-propre est le plus grand de tous les flatteurs » : cinq cents maximes qui coupent.' },
+      { id: 'pensees', title: 'Pensées', year: 1670, auteurName: 'Blaise Pascal', auteurId: 'pascal', tendanceId: 'mo-pensee', genre: 'essai', comment: 'Fragments d’une apologie jamais écrite : « Le cœur a ses raisons » — le livre des paris intérieurs.' },
+      { id: 'caracteres', title: 'Les Caractères', year: 1688, auteurName: 'Jean de La Bruyère', auteurId: 'labruyere', tendanceId: 'mo-maxime', genre: 'essai', comment: 'De la cour aux ouvrages de l’esprit : la satire des mœurs en mille portraits.' },
+      { id: 'lettres-sevigne', title: 'Lettres', year: 1725, auteurName: 'Mme de Sévigné', auteurId: 'sevigne', tendanceId: 'mo-memoire', genre: 'essai', comment: 'Grignan, la cour, les mariages : la prose intime la plus vive du siècle.' },
+      { id: 'memoires-saintsimon', title: 'Mémoires', year: 1740, auteurName: 'Saint-Simon', auteurId: 'saint-simon', tendanceId: 'mo-memoire', genre: 'essai', comment: 'Quarante ans de Versailles : le duc au scalpel, le siècle en fresque obsessionnelle.' },
+      { id: 'provinciales', title: 'Les Provinciales', year: 1656, auteurName: 'Blaise Pascal', auteurId: 'pascal', tendanceId: 'mo-pensee', genre: 'essai', comment: 'Contre les jésuites : le pamphlet comme art — ironie, lettres, polémique virtuose.' },
+    ],
+  },
+];

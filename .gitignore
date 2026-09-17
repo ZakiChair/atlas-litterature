@@ -1,0 +1,7 @@
+node_modules
+dist
+.vercel
+
+# caches & logs de scripts
+scripts/.cache/
+scripts/tmp/
